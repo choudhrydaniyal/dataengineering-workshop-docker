@@ -1,0 +1,19 @@
+[project]
+name = "dataengineering-workshop-docker"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12.1"
+dependencies = [
+    "click>=8.4.1",
+    "pandas>=3.0.3",
+    "psycopg2-binary>=2.9.12",
+    "pyarrow>=24.0.0",
+    "sqlalchemy>=2.0.51",
+]
+
+[dependency-groups]
+dev = [
+    "jupyter>=1.1.1",
+    "pgcli>=4.5.0",
+]

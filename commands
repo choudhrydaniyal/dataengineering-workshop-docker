@@ -1,0 +1,12 @@
+uv run pgcli -h localhost -p 5432 -u root -d ny_taxi
+
+uv run python data_ingestion.py \
+  --pg-user=root \
+  --pg-password=root \
+  --pg-host=localhost \
+  --pg-port=5432 \
+  --pg-database=ny_taxi \
+  --table-name=yellow_taxi_trips \
+  --year=2021 \
+  --month=1 \
+  --chunk-size=100000

@@ -1,3 +1,4 @@
+import click
 import pandas as pd
 from sqlalchemy import create_engine
 
@@ -51,17 +52,18 @@ def run_ingestion(year: int, month: int, pg_user: str, pg_password: str, pg_host
     print("Data ingestion completed.")
 
 
-def main():
-    pg_user = "root"
-    pg_password = "root"
-    pg_host = "localhost"
-    pg_port = "5432"
-    pg_database = "ny_taxi"
-    year = 2021
-    month = 1
+@click.command()
+@click.option('--pg-user', default='root', help='PostgreSQL user')
+@click.option('--pg-password', default='root', help='PostgreSQL password')
+@click.option('--pg-host', default='localhost', help='PostgreSQL host')
+@click.option('--pg-port', default='5432', help='PostgreSQL port')
+@click.option('--pg-database', default='ny_taxi', help='PostgreSQL database')
+@click.option('--year', default=2021, type=int, help='Year of the data')
+@click.option('--month', default=1, type=int, help='Month of the data')
+@click.option('--table-name', default='yellow_taxi_data', help='Table name in the database')
+@click.option('--chunk-size', default=10000, type=int, help='Chunk size for reading data')
+def main(pg_user, pg_password, pg_host, pg_port, pg_database, year, month, table_name, chunk_size):
     url = f"https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_tripdata_{year}-{month:02d}.csv.gz"
-    table_name = "yellow_taxi_data"
-    chunk_size = 10000
 
     engine = create_engine(f"postgresql://{pg_user}:{pg_password}@{pg_host}:{pg_port}/{pg_database}")
 
